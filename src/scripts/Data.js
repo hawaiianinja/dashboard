@@ -31,6 +31,8 @@ export default data;
             for (var i = 0, l = _data.filePaths.length; i < l; i++) {
                 var promise = $.getJSON(_data.filePaths[i]);
                 promise.done(function (jsonData) {
+
+                    // Parse jsonData for desired event data
                     for (var i = 0, l = jsonData.items.length; i < l; i++) {
                         var startDateTime = new Date(jsonData.items[i].start.dateTime);
                         var endDateTime = new Date(jsonData.items[i].end.dateTime);
@@ -47,7 +49,7 @@ export default data;
                         _data.count += 1;
                     }
 
-                    // Add organizers property
+                    // Process event data grouped by field
                     if(!_data.hasOwnProperty('organizers')){
                         _data.organizers = {};
                     }
@@ -62,7 +64,7 @@ export default data;
                         _data.organizers[_data.events[i].organizer].length += _data.events[i].length;
                         _data.organizers[_data.events[i].organizer].count += 1;
 
-                        // Add organizers | attendees property
+                        // Process event data grouped by organizers and attendees fields
                         if(!_data.organizers[_data.events[i].organizer].hasOwnProperty('attendees')){
                             _data.organizers[_data.events[i].organizer].attendees = {};
                         }
@@ -73,12 +75,12 @@ export default data;
                             _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].count = 0;
                         }
                         _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].events.push(_data.events[i]);
-                        _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].length = _data.events[i].length;
+                        _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].length += _data.events[i].length;
                         _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].count += 1;
                     
                     }
 
-                    // Add attendees property
+                    // Process event data grouped by attendees field
                     if(!_data.hasOwnProperty('attendees')){
                         _data.attendees = {};
                     }
