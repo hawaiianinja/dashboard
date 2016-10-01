@@ -2,14 +2,16 @@
 
 import Dashboard from './Dashboard';
 import PageNotFound from './PageNotFound';
-import JordanTest from './JordanTest';
+import EventCountsByOrganizer from './EventCountsByOrganizer';
+import EventLengthByOrganizer from './EventLengthByOrganizer';
 
 (function(){
 
     var views = {};
     views.Dashboard = Dashboard;
     views.PageNotFound = PageNotFound;
-    views.JordanTest = JordanTest;
+    views.EventCountsByOrganizer = EventCountsByOrganizer;
+    views.EventLengthByOrganizer = EventLengthByOrganizer;
 
     // View load function
     var loadView = function(name, options) {
