@@ -47,6 +47,7 @@ export default data;
                         _data.count += 1;
                     }
 
+                    // Add organizers property
                     if(!_data.hasOwnProperty('organizers')){
                         _data.organizers = {};
                     }
@@ -61,6 +62,7 @@ export default data;
                         _data.organizers[_data.events[i].organizer].length += _data.events[i].length;
                         _data.organizers[_data.events[i].organizer].count += 1;
 
+                        // Add organizers | attendees property
                         if(!_data.organizers[_data.events[i].organizer].hasOwnProperty('attendees')){
                             _data.organizers[_data.events[i].organizer].attendees = {};
                         }
@@ -74,8 +76,9 @@ export default data;
                         _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].length = _data.events[i].length;
                         _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].count += 1;
                     
-                }
+                    }
 
+                    // Add attendees property
                     if(!_data.hasOwnProperty('attendees')){
                         _data.attendees = {};
                     }
@@ -90,6 +93,7 @@ export default data;
                         _data.attendees[_data.events[i].attendees].length += _data.events[i].length;
                         _data.attendees[_data.events[i].attendees].count += 1;
                     }
+
                 });
                 _data.filePromises.push(promise);
             }
