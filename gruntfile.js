@@ -153,26 +153,6 @@
                 exec: 'TODO'
             }
         },
-        connect: {
-            server: {
-                options: {
-                    protocol: 'http',
-                    hostname: 'localhost',
-                    port: 35729,
-                    base: {
-                        path: 'build',
-                        options: {
-                            index: ['index.html'],
-                            maxAge: 0
-                        }
-                    },
-                    open: 'http://localhost:35729/index.html',
-                    directory: 'build',
-                    keepalive: false,
-                    debug: false
-                }
-            }
-        },
         watch: {
             'srcToBuild': {
                 files: ['**/*', '!scripts/**','!styles/**'],
@@ -203,7 +183,7 @@
     grunt.loadNpmTasks('grunt-rollup');
     grunt.loadNpmTasks('grunt-run');
     grunt.loadNpmTasks('grunt-sync');
-    grunt.loadNpmTasks('grunt-contrib-connect');
+
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('debug', [
@@ -219,9 +199,6 @@
         // Copy non-minified version of app scripts and styles files from src to build
         'rollup:appJs',
         'copy:appCss',
-
-        // Start and connect to local web server for debugging
-        'connect',
         
         // Wait for files to change than run tasks required based on which files change
         'watch'
@@ -272,7 +249,7 @@
 
         // Sync build folder with deploy/test folder then deploy to server
         'sync:buildWithDeployProduction',
-        //'run:deployProduction'
+        //'run:deployProduction' 
 
     ]);
 
