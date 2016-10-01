@@ -1,0 +1,20 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 5,
+        "sourceType": "module"
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "semi": 2,
+        "quotes": ["error", "single"],
+        "no-redeclare": 0,
+        "no-console": 0
+    },
+    "globals": {
+        "jQuery": false,
+        "$": true
+    },
+    "env": {
+        "browser": true
+    }
+}
