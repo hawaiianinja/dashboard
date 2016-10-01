@@ -2,12 +2,14 @@
 
 import Dashboard from './Dashboard';
 import PageNotFound from './PageNotFound';
+import Test from './Test';
 
 (function(){
 
     var views = {};
     views.Dashboard = Dashboard;
     views.PageNotFound = PageNotFound;
+    views.Test = Test;
 
     // View load function
     var loadView = function(name, options) {
