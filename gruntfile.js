@@ -153,14 +153,6 @@
                 exec: 'TODO'
             }
         },
-        concurrent: {
-            connectAndWatch: {
-                tasks: ['connect', 'watch'],
-                options: {
-                    logConcurrentOutput: true
-                }
-            }
-        },
         connect: {
             server: {
                 options: {
@@ -182,47 +174,6 @@
                 }
             }
         },
-        watch: {
-            'scripts': {
-                files: 'src/scripts/**/*.js',
-                tasks: ['eslint', 'rollup:appJs'],
-            },
-            'scripts-livereload': {
-                files: 'build/scripts/**/*.js',
-                options: {
-                    livereload: {
-                        host: 'localhost',
-                        port: 35729,
-                    }
-                }
-            },
-            'styles': {
-                files: 'src/styles/**/*.css',
-                tasks: ['copy:appCss']
-            },
-            'styles-livereload': {
-                files: 'build/styles/**/*.css',
-                options: {
-                    livereload: {
-                        host: 'localhost',
-                        port: 35729,
-                    }
-                }
-            },
-            'html': {
-                files: 'src/**/*.html',
-                tasks: ['copy:srcToBuild']
-            },
-            'html-livereload': {
-                files: 'build/**/*.html',
-                options: {
-                    livereload: {
-                        host: 'localhost',
-                        port: 35729,
-                    }
-                }
-            }
-        }
     });
 
     grunt.loadNpmTasks('grunt-cache-bust');
@@ -235,10 +186,7 @@
     grunt.loadNpmTasks('grunt-rollup');
     grunt.loadNpmTasks('grunt-run');
     grunt.loadNpmTasks('grunt-sync');
-
-    grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('debug', [
 
@@ -255,12 +203,7 @@
         'copy:appCss',
 
         // Start and connect to local web server for debugging
-        //'connect',
-
-        // Watch files for changes
-        //'watch',
-
-        'concurrent:connectAndWatch'
+        'connect',
 
     ]);
 
