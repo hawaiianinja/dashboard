@@ -126,7 +126,7 @@
         },
         sync: {
             buildWithDeployTest: {
-                expand: true,
+                expand: true, 
                 cwd: 'build',
                 src: ['**/*'],
                 dest: 'deploy/test',
