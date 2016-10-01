@@ -33,7 +33,7 @@ export default Test;
                 for (var key in organizer.attendees) {
                     if (organizer.attendees.hasOwnProperty(key)) {
                         var attendees = organizer.attendees[key];
-                        charts[i].data.push([key, attendees.count]);
+                        charts[i].data.push([key, attendees.count]);  
                     }
                 }
             }
@@ -41,7 +41,8 @@ export default Test;
 
         // Set chart options
         var options = {
-            title: 'Next Quarter Outlook'
+            title: 'Next Quarter Outlook',
+            is3D: true
         };
 
         for (var i = 0, l = charts.length; i < l; i++) {

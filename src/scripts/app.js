@@ -2,7 +2,6 @@
 
 import Dashboard from './Dashboard';
 import PageNotFound from './PageNotFound';
-import BradTest from './BradTest';
 import JordanTest from './JordanTest';
 
 (function(){
@@ -10,7 +9,6 @@ import JordanTest from './JordanTest';
     var views = {};
     views.Dashboard = Dashboard;
     views.PageNotFound = PageNotFound;
-    views.BradTest = BradTest;
     views.JordanTest = JordanTest;
 
     // View load function
