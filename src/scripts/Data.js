@@ -28,10 +28,12 @@ export default data;
         var deferred = $.Deferred();
 
         setTimeout(function () {
-            for (var i = 0, l = _data.filePaths.length; i < l; i++) {
-                var promise = $.getJSON(_data.filePaths[i]);
-                promise.done(function (jsonData) {
 
+            for (var i = 0, l = _data.filePaths.length; i < l; i++) {
+
+                var promise = $.getJSON(_data.filePaths[i]);
+
+                promise.done(function (jsonData) {
                     // Parse jsonData for desired event data
                     for (var i = 0, l = jsonData.items.length; i < l; i++) {
                         var startDateTime = new Date(jsonData.items[i].start.dateTime);
@@ -48,60 +50,65 @@ export default data;
                         _data.length += event.length;
                         _data.count += 1;
                     }
-
-                    // Process event data grouped by field
-                    if(!_data.hasOwnProperty('organizers')){
-                        _data.organizers = {};
-                    }
-                    for (var i = 0, l = _data.events.length; i < l; i++) {
-                        if(!_data.organizers.hasOwnProperty(_data.events[i].organizer)){
-                            _data.organizers[_data.events[i].organizer] = {};
-                            _data.organizers[_data.events[i].organizer].events = [];
-                            _data.organizers[_data.events[i].organizer].length = 0;
-                            _data.organizers[_data.events[i].organizer].count = 0;
-                        }
-                        _data.organizers[_data.events[i].organizer].events.push(_data.events[i]); 
-                        _data.organizers[_data.events[i].organizer].length += _data.events[i].length;
-                        _data.organizers[_data.events[i].organizer].count += 1;
-
-                        // Process event data grouped by organizers and attendees fields
-                        if(!_data.organizers[_data.events[i].organizer].hasOwnProperty('attendees')){
-                            _data.organizers[_data.events[i].organizer].attendees = {};
-                        }
-                        if(!_data.organizers[_data.events[i].organizer].attendees.hasOwnProperty(_data.events[i].attendees)){
-                            _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees] = {};
-                            _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].events = [];
-                            _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].length = 0;
-                            _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].count = 0;
-                        }
-                        _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].events.push(_data.events[i]);
-                        _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].length += _data.events[i].length;
-                        _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].count += 1;
-                    
-                    }
-
-                    // Process event data grouped by attendees field
-                    if(!_data.hasOwnProperty('attendees')){
-                        _data.attendees = {};
-                    }
-                    for (var i = 0, l = _data.events.length; i < l; i++) {
-                        if(!_data.attendees.hasOwnProperty(_data.events[i].attendees)){
-                            _data.attendees[_data.events[i].attendees] = {};
-                            _data.attendees[_data.events[i].attendees].events = [];
-                            _data.attendees[_data.events[i].attendees].length = 0;
-                            _data.attendees[_data.events[i].attendees].count = 0;
-                        }
-                        _data.attendees[_data.events[i].attendees].events.push(_data.events[i]);
-                        _data.attendees[_data.events[i].attendees].length += _data.events[i].length;
-                        _data.attendees[_data.events[i].attendees].count += 1;
-                    }
-
                 });
+
                 _data.filePromises.push(promise);
+                
             }
-            $.when.apply($, data.filePromises).done(function() {
+
+            $.when.apply($, _data.filePromises).done(function() {
+
+                // Process event data grouped by field
+                if(!_data.hasOwnProperty('organizers')){
+                    _data.organizers = {};
+                }
+                for (var i = 0, l = _data.events.length; i < l; i++) {
+                    if(!_data.organizers.hasOwnProperty(_data.events[i].organizer)){
+                        _data.organizers[_data.events[i].organizer] = {};
+                        _data.organizers[_data.events[i].organizer].events = [];
+                        _data.organizers[_data.events[i].organizer].length = 0;
+                        _data.organizers[_data.events[i].organizer].count = 0;
+                    }
+                    _data.organizers[_data.events[i].organizer].events.push(_data.events[i]); 
+                    _data.organizers[_data.events[i].organizer].length += _data.events[i].length;
+                    _data.organizers[_data.events[i].organizer].count += 1;
+
+                    // Process event data grouped by organizers and attendees fields
+                    if(!_data.organizers[_data.events[i].organizer].hasOwnProperty('attendees')){
+                        _data.organizers[_data.events[i].organizer].attendees = {};
+                    }
+                    if(!_data.organizers[_data.events[i].organizer].attendees.hasOwnProperty(_data.events[i].attendees)){
+                        _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees] = {};
+                        _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].events = [];
+                        _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].length = 0;
+                        _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].count = 0;
+                    }
+                    _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].events.push(_data.events[i]);
+                    _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].length += _data.events[i].length;
+                    _data.organizers[_data.events[i].organizer].attendees[_data.events[i].attendees].count += 1;
+                
+                }
+
+                // Process event data grouped by attendees field
+                if(!_data.hasOwnProperty('attendees')){
+                    _data.attendees = {};
+                }
+                for (var i = 0, l = _data.events.length; i < l; i++) {
+                    if(!_data.attendees.hasOwnProperty(_data.events[i].attendees)){
+                        _data.attendees[_data.events[i].attendees] = {};
+                        _data.attendees[_data.events[i].attendees].events = [];
+                        _data.attendees[_data.events[i].attendees].length = 0;
+                        _data.attendees[_data.events[i].attendees].count = 0;
+                    }
+                    _data.attendees[_data.events[i].attendees].events.push(_data.events[i]);
+                    _data.attendees[_data.events[i].attendees].length += _data.events[i].length;
+                    _data.attendees[_data.events[i].attendees].count += 1;
+                }
+
                 deferred.resolve(_data);
+
             });
+
         }, 0);
 
         return deferred;
