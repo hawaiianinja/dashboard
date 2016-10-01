@@ -2,14 +2,16 @@
 
 import Dashboard from './Dashboard';
 import PageNotFound from './PageNotFound';
-import Test from './Test';
+import BradTest from './BradTest';
+import JordanTest from './JordanTest';
 
 (function(){
 
     var views = {};
     views.Dashboard = Dashboard;
     views.PageNotFound = PageNotFound;
-    views.Test = Test;
+    views.BradTest = BradTest;
+    views.JordanTest = JordanTest;
 
     // View load function
     var loadView = function(name, options) {
