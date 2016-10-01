@@ -41,6 +41,7 @@ export default View;
                 $.get('views/' + _this.fileName, function (data) {
                     //_this.html = data;
                     //$('#view').html(_this.html);
+                    console.log(data);
                     $('#view').html(data);
                     _this.loading.resolve();
                 });
