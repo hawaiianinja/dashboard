@@ -121,7 +121,7 @@
                     assets: ['*.js', '*.min.js', '*.min.map']
                 },
                 cwd: 'build',
-                src: ['scripts/app.*.js', 'scripts/app.min.*.js', 'scripts/app.min.*.map', 'default.aspx']
+                src: [ '*.html', '*.aspx', 'scripts/app.*.js', 'scripts/app.min.*.js', 'scripts/app.min.*.map']
             }
         },
         sync: {
@@ -243,7 +243,7 @@
         'copy:appCss',
 
         // cacheBust static assets to prevent issues with GCDS caching
-        'cacheBust',
+        //'cacheBust',
 
         // Sync build folder with deploy/test folder then deploy to server
         'sync:buildWithDeployTest',
@@ -268,7 +268,7 @@
         'replace:appJsAndAppCss',
 
         // cacheBust static assets to prevent issues with GCDS caching
-        'cacheBust',
+        //'cacheBust',
 
         // Sync build folder with deploy/test folder then deploy to server
         'sync:buildWithDeployProduction',
