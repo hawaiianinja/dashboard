@@ -12,7 +12,8 @@
     },
     "globals": {
         "jQuery": false,
-        "$": true
+        "$": true,
+        "google": true
     },
     "env": {
         "browser": true

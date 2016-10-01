@@ -12,55 +12,114 @@ export default Test;
     // Declare module scoped variables
 
     // Declare module scoped functions
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
 
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
+    function drawCountCharts(data) {
 
+        // Define charts
+        var charts = [
+            { name: 'CG', id: 'CGCount', data: [] },
+            { name: 'DCG-N', id: 'DCGNCount', data: [] },
+            { name: 'DCG-S', id: 'DCGSCount', data: [] },
+            { name: 'DCG-NG', id: 'DCGNGCount', data: [] },
+            { name: 'DCG-AR', id: 'DCGARCount', data: [] },
+            { name: 'COS', id: 'COSCount', data: [] },
+            { name: 'G3', id: 'G3Count', data: [] }
+        ];
+
+        // Load chart data from data module
+        for (var i = 0, l = charts.length; i < l; i++) {
+            if (data.organizers.hasOwnProperty(charts[i].name)) {
+                var organizer = data.organizers[charts[i].name];
+                for (var key in organizer.attendees) {
+                    if (organizer.attendees.hasOwnProperty(key)) {
+                        var attendees = organizer.attendees[key];
+                        charts[i].data.push([key, attendees.count]);
+                    }
+                }
+            }
+        }
+
+        // Set chart options
         var options = {
             title: 'Next Quarter Outlook'
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('CG'));
-        var chart2 = new google.visualization.PieChart(document.getElementById('DCGN'));
-        var chart3 = new google.visualization.PieChart(document.getElementById('DCGS'));
-        var chart4 = new google.visualization.PieChart(document.getElementById('DCGNG'));
-        var chart5 = new google.visualization.PieChart(document.getElementById('DCGAR'));
-        var chart6 = new google.visualization.PieChart(document.getElementById('COS'));
-        var chart7 = new google.visualization.PieChart(document.getElementById('G3'));
+        for (var i = 0, l = charts.length; i < l; i++) {
+            // Get chart data
+            var chartData = [];
+            chartData.push(['Event', 'Count']);
+            chartData = chartData.concat(charts[i].data);
+            // Create chart data table
+            var dataTable  = google.visualization.arrayToDataTable(chartData);
+            // Create chart object
+            var chartObject = new google.visualization.PieChart(document.getElementById(charts[i].id));
+            // Draw chart
+            chartObject.draw(dataTable, options);
+        }
 
-        chart.draw(data, options);
-        chart2.draw(data, options);
-        chart3.draw(data, options);
-        chart4.draw(data, options);
-        chart5.draw(data, options);
-        chart6.draw(data, options);
-        chart7.draw(data, options);
+    }
+
+    function drawLengthCharts(data) {
+
+        // Define charts
+        var charts = [
+            { name: 'CG', id: 'CGLength', data: [] },
+            { name: 'DCG-N', id: 'DCGNLength', data: [] },
+            { name: 'DCG-S', id: 'DCGSLength', data: [] },
+            { name: 'DCG-NG', id: 'DCGNGLength', data: [] },
+            { name: 'DCG-AR', id: 'DCGARLength', data: [] },
+            { name: 'COS', id: 'COSLength', data: [] },
+            { name: 'G3', id: 'G3Length', data: [] }
+        ];
+
+        // Load chart data from data module
+        for (var i = 0, l = charts.length; i < l; i++) {
+            if (data.organizers.hasOwnProperty(charts[i].name)) {
+                var organizer = data.organizers[charts[i].name];
+                for (var key in organizer.attendees) {
+                    if (organizer.attendees.hasOwnProperty(key)) {
+                        var attendees = organizer.attendees[key];
+                        charts[i].data.push([key, attendees.length]);
+                    }
+                }
+            }
+        }
+
+        // Set chart options
+        var options = {
+            title: 'Next Quarter Outlook'
+        };
+
+        for (var i = 0, l = charts.length; i < l; i++) {
+            // Get chart data
+            var chartData = [];
+            chartData.push(['Event', 'Count']);
+            chartData = chartData.concat(charts[i].data);
+            // Create chart data table
+            var dataTable  = google.visualization.arrayToDataTable(chartData);
+            // Create chart object
+            var chartObject = new google.visualization.PieChart(document.getElementById(charts[i].id));
+            // Draw chart
+            chartObject.draw(dataTable, options);
+        }
+
     }
 
     // Code to run before view is loaded (i.e. before $(document).ready function)
-    Test.beforeLoad = function (options) {
+    Test.beforeLoad = function () {
         console.log('beforeLoad');
-        console.log(options);
     };
 
-    
-
     // Code to run before view is loaded (i.e. after $(document).ready function)
-    Test.afterLoad = function (options) {
+    Test.afterLoad = function () {
         console.log('afterLoad');
-        console.log(options);
         var promise = data.load();
-        $.when(promise).done(function(data) {
-            displayData(data);
+        $.when(promise).done(function (data) {
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(function () { 
+                drawCountCharts(data); 
+                drawLengthCharts(data);
+            });
         });
     };
 
