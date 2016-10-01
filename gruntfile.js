@@ -168,13 +168,20 @@
                     },
                     open: 'http://localhost:35729/index.html',
                     directory: 'build',
-                    livereload: false,
                     keepalive: false,
                     debug: false
                 }
             }
         },
         watch: {
+            'srcToBuild': {
+                files: ['**/*', '!scripts/**','!styles/**'],
+                tasks: ['copy:srcToBuild']
+            },
+            'libToBuild': {
+                files: ['lib/**/*'],
+                tasks: ['copy:libToBuild']
+            },
             'scripts': {
                 files: 'src/scripts/**/*.js',
                 tasks: ['eslint', 'rollup:appJs'],
@@ -182,10 +189,6 @@
             'styles': {
                 files: 'src/styles/**/*.css',
                 tasks: ['copy:appCss']
-            },
-            'html': {
-                files: 'src/**/*.html',
-                tasks: ['copy:srcToBuild']
             }
         }
     });
@@ -200,7 +203,6 @@
     grunt.loadNpmTasks('grunt-rollup');
     grunt.loadNpmTasks('grunt-run');
     grunt.loadNpmTasks('grunt-sync');
-    
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
