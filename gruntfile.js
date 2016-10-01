@@ -73,8 +73,8 @@
                         }
                     ]
                 },
-                src: ['build/default.aspx'],
-                dest: 'build/default.aspx'
+                src: ['build/index.html'],
+                dest: 'build/index.html'
             }
         },
         cacheBust: {
@@ -83,8 +83,8 @@
             Static assets must be busted in the following order to prevent errors
             1. image files, because they cannot reference other static assets
             2  view files, because for this project, view files referance images and are only referenced by app.js, and app.min.js
-            3. css files, because for this project, css files referance images and are only referenced by app.css, app.min.css, and default.aspx
-            4. js files, becaues for this project, js files reference images and are only referenced by app.js, app.min.js, app.min.map, and default.aspx
+            3. css files, because for this project, css files referance images and are only referenced by app.css, app.min.css, and index.html
+            4. js files, becaues for this project, js files reference images and are only referenced by app.js, app.min.js, app.min.map, and index.html
             */
             options: {
                 deleteOriginals: true,
@@ -113,7 +113,7 @@
                     assets: ['*.css']
                 },
                 cwd: 'build',
-                src: ['styles/*.css', 'default.aspx']
+                src: ['styles/*.css', 'index.html']
             },
             scripts: {
                 options: {
@@ -121,7 +121,7 @@
                     assets: ['*.js', '*.min.js', '*.min.map']
                 },
                 cwd: 'build',
-                src: [ '*.html', '*.aspx', 'scripts/app.*.js', 'scripts/app.min.*.js', 'scripts/app.min.*.map']
+                src: [ 'index.html', 'scripts/app.*.js', 'scripts/app.min.*.js', 'scripts/app.min.*.map']
             }
         },
         sync: {
