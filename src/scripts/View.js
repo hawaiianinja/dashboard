@@ -39,8 +39,9 @@ export default View;
                 _this.loading.resolve();
             } else {
                 $.get('views/' + _this.fileName, function (data) {
-                    _this.html = data;
-                    $('#view').html(_this.html);
+                    //_this.html = data;
+                    //$('#view').html(_this.html);
+                    $('#view').html(data);
                     _this.loading.resolve();
                 });
             }
