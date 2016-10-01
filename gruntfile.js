@@ -184,8 +184,6 @@
     grunt.loadNpmTasks('grunt-run');
     grunt.loadNpmTasks('grunt-sync');
 
-    grunt.loadNpmTasks('grunt-contrib-watch');
-
     grunt.registerTask('debug', [
 
         // Lint js files to minimize chance of errors
@@ -199,9 +197,6 @@
         // Copy non-minified version of app scripts and styles files from src to build
         'rollup:appJs',
         'copy:appCss',
-        
-        // Wait for files to change than run tasks required based on which files change
-        'watch'
 
     ]);
 
