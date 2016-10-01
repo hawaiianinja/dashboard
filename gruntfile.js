@@ -163,17 +163,31 @@
                         path: 'build',
                         options: {
                             index: ['index.html'],
-                            maxAge: 300000
+                            maxAge: 0
                         }
                     },
                     open: 'http://localhost:35729/index.html',
                     directory: 'build',
-                    livereload: true,
-                    keepalive: true,
+                    livereload: false,
+                    keepalive: false,
                     debug: false
                 }
             }
         },
+        watch: {
+            'scripts': {
+                files: 'src/scripts/**/*.js',
+                tasks: ['eslint', 'rollup:appJs'],
+            },
+            'styles': {
+                files: 'src/styles/**/*.css',
+                tasks: ['copy:appCss']
+            },
+            'html': {
+                files: 'src/**/*.html',
+                tasks: ['copy:srcToBuild']
+            }
+        }
     });
 
     grunt.loadNpmTasks('grunt-cache-bust');
@@ -186,7 +200,9 @@
     grunt.loadNpmTasks('grunt-rollup');
     grunt.loadNpmTasks('grunt-run');
     grunt.loadNpmTasks('grunt-sync');
+    
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('debug', [
 
@@ -204,6 +220,9 @@
 
         // Start and connect to local web server for debugging
         'connect',
+        
+        // Wait for files to change than run tasks required based on which files change
+        'watch'
 
     ]);
 
