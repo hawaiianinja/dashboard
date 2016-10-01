@@ -226,8 +226,7 @@
 
         // Sync build folder with deploy/test folder then deploy to server
         'sync:buildWithDeployTest',
-        'run:deployTest'
-
+        //'run:deployTest'
 
     ]);
 
@@ -252,7 +251,7 @@
 
         // Sync build folder with deploy/test folder then deploy to server
         'sync:buildWithDeployProduction',
-        'run:deployProduction'
+        //'run:deployProduction'
 
     ]);
 
